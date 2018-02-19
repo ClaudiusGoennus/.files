@@ -1,7 +1,7 @@
 "
 "nifty tips an tr1cks:
 "   -> '!' after a boolean option toggles it, '?' returns its value
-"   .> onoremap is for movement commands
+"   -> onoremap is for movement commands
 "
 
 " Conventions {{{
@@ -69,6 +69,9 @@ let maplocalleader = "m"
 "used to punish bad behaviour
 let bad = "BADBADBADBADBADBADBADBADBAD"
 
+"scripout file
+let g:scriptout_file = "/home/nlautner/.vim/scriptout"
+
 "}}}
 
 " Punishment {{{
@@ -86,6 +89,9 @@ noremap <left> :echo bad<cr>
 "toggle lightline
 "call lightline#toggle()
 "nnoremap <leader>tll :call lightline#toggle()<cr>
+"
+
+set breakindent "correct indenting for linebreaks
 
 set laststatus=2 "always have status-line
 
@@ -125,6 +131,10 @@ set scrolloff=999 "always move window around cursor
             set laststatus=2
         endif
     endfunction
+
+    function! SetWinheight(height)
+        execute ":set winheight=" . a:height
+    endfunction
 "}}}
 
 "toggle status-line
@@ -137,6 +147,14 @@ nnoremap ü :split<CR>
 nnoremap <leader>ü :close<CR>
 "move between tabs
 nnoremap <leader><leader> <C-w><C-w>
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>h <C-w>h
+nnoremap <leader>l <C-w>l
+"increase current window size
+nnoremap <leader>+ <C-w>+
+"decrease current window size
+nnoremap <leader>- <C-w>-
 
 "uppercasing words with ctrl-u
 inoremap <c-u> <esc>viwU<esc>i
@@ -194,6 +212,17 @@ nnoremap <leader>p :cprevious<cr>
 
 "}}}
 
+" Abbreviations {{{
+
+iabbrev adn and
+
+"coding
+"iabbrev { {<cr><cr>}<esc>kddki
+"iabbrev ( ()<esc>i 
+"iabbrev [ []<esc>i
+
+"}}}
+
 " Errors {{{
 
 "match trailing whitespace
@@ -216,12 +245,15 @@ nnoremap <leader>ew :match Error /\v.+ $/<cr>
 augroup python
     autocmd!
 
+    "run script
+    autocmd FileType python nnoremap <leader>x :execute "terminal python3 " . expand("%:p")<cr>
+
     "folding
-    autocmd FileType python set foldmethod=indent
+    autocmd FileType python set foldmethod=marker
     autocmd FileType python set foldminlines=3
     autocmd FileType python nnoremap <leader>ni :call ToggleFoldsPython()<cr>
     "comment line
-    autocmd FileType python nnoremap <leader>c I#<esc>
+    autocmd FileType python nnoremap <leader>cl I#<esc>
 
     "if main
     autocmd FileType python iabbrev ifmain if __name__ == "__main__":<cr>main()<esc>
@@ -230,10 +262,30 @@ augroup python
 augroup end
 "}}}
 
+" C {{{
+augroup C
+    autocmd!
+    
+    "compile and execute
+    autocmd FileType c nnoremap <leader>x :execute "terminal ++hidden gcc -o " . expand("%")[:-3] . " " . expand("%") <Bar> execute "terminal ./" . expand("%")[:-3]<cr>
+
+    "abbreviations
+    autocmd FileType c iabbrev main int main(int argc, char *argv[]) { <cr><cr>}<esc>k
+    autocmd FileType c iabbrev /* /* */<esc>2hi <esc>i
+augroup end
+" }}}
+
 " Vimscript {{{
 augroup vimscript
     autocmd!
     autocmd FileType vim :set foldmethod=marker
+    autocmd FileType vim nnoremap <leader>r :source %<cr>
+augroup end
+"}}}
+
+"DosINI {{{
+augroup dosini
+    autocmd FileType dosini nnoremap <leader>cl I;<esc>
 augroup end
 "}}}
 
@@ -245,9 +297,4 @@ augroup textfiles
 augroup end
 "}}}
 
-" Abbreviations {{{
-
-iabbrev adn and
-
-"}}}
 

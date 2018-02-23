@@ -31,7 +31,7 @@ setopt menu_complete
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ##### PROMTP #####
-#PS1=$' ## %~\n ### '
+PS1="%{$fg[blue]%}%F{5}%m%f %F{2}%~%f%{$reset_color%} $ "
 
 ##### ALIASES #####
 
@@ -63,6 +63,7 @@ alias -g polybarrc="vim ${HOME}/.config/polybar/config"
 alias -g cp="cp -i"
 alias -g mv="mv -i"
 #alias -g rm="rm -i"
+alias -g la="ls -al"
 alias -g c="clear && sync"
 alias -g inst="sudo pacman -S"
 alias -g upd="sudo pacman -Syu"

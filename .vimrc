@@ -19,7 +19,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Yggdroot/indentLine'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 "Plugin 'itchyny/lightline.vim'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
@@ -40,7 +40,7 @@ filetype plugin indent on
 " Colors {{{
 
 """pywal colorscheme
-colorscheme wal
+"colorscheme wal
 
 """solarized colorscheme
 "set background=dark
@@ -49,7 +49,7 @@ colorscheme wal
 
 """highlights
 highlight Folded ctermbg=darkgrey ctermfg=lightgrey
-highlight FoldColumn ctermbg=darkgrey ctermfg=lightgrey
+highlight FoldColumn ctermbg=black ctermfg=black
 highlight Error ctermbg=darkred
 
 """lightline
@@ -91,6 +91,8 @@ noremap <left> :echo bad<cr>
 "nnoremap <leader>tll :call lightline#toggle()<cr>
 "
 
+set encoding=utf-8  "breaks many vim files...
+
 set breakindent "correct indenting for linebreaks
 
 set laststatus=2 "always have status-line
@@ -116,6 +118,7 @@ set lazyredraw "redraw more seldomly for faster macros
 
 set incsearch "search as characters are entered
 set hlsearch "highlight matches
+set ignorecase "case insensitive search
 
 set scrolloff=999 "always move window around cursor
 
@@ -160,9 +163,16 @@ nnoremap <leader>- <C-w>-
 inoremap <c-u> <esc>viwU<esc>i
 nnoremap <c-u> viwU<esc>
 
+"appending a line to the "A register
+nnoremap <leader>y "Ayy
+nnoremap <leader>d "Add
+
+"pasting from the "A register
+nnoremap <leader>p "Ap
+
 "-> vimrc
 "open vimrc custom remaps in new window
-nnoremap <leader>cr :split $MYVIMRC<cr>/- custom remaps -<cr>
+nnoremap <leader>v :split $MYVIMRC<cr>/j custom remaps -<cr>
 "open vimrc abbreviations in new window
 nnoremap <leader>abr :split $MYVIMRC<cr>/- abbreviations -<cr>nn
 "reload vimrc
@@ -201,9 +211,9 @@ nnoremap <leader>ce :match none<cr>
 nnoremap <leader>qf :copen<cr>
 
 "go to next match
-nnoremap <leader>n :cnext<cr>
+nnoremap <leader>gn :cnext<cr>
 "go to last match
-nnoremap <leader>p :cprevious<cr>
+nnoremap <leader>gp :cprevious<cr>
 
 
 "TaskList
@@ -265,9 +275,13 @@ augroup end
 " C {{{
 augroup C
     autocmd!
+
+    "foldmethod
+    autocmd FileType c set foldmethod=indent
+    autocmd FileType c set foldnestmax=1
     
     "compile and execute
-    autocmd FileType c nnoremap <leader>x :execute "terminal ++hidden gcc -o " . expand("%")[:-3] . " " . expand("%") <Bar> execute "terminal ./" . expand("%")[:-3]<cr>
+    autocmd FileType c nnoremap <leader>x :execute "terminal gcc -o " . expand("%:t")[:-3] . " " . expand("%") <cr> | :execute "terminal " . expand("%")[:-3]
 
     "abbreviations
     autocmd FileType c iabbrev main int main(int argc, char *argv[]) { <cr><cr>}<esc>k

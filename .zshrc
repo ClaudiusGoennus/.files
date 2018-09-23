@@ -1,13 +1,13 @@
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
+HISTSIZE=2000
 SAVEHIST=1000
-setopt appendhistory extendedglob
+setopt appendhistory autocd extendedglob
 unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/nlautner/.zshrc'
+zstyle :compinstall filename '/home/lautnern/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -52,18 +52,29 @@ alias -g xrc="vim ${HOME}/.xinitrc"
 alias -g xres="vim ${HOME}/.Xresources"
 alias -g vimrc="vim ${HOME}/.vimrc" 
 alias -g zshrc="vim ${HOME}/.files/.zshrc"
+alias -g zprofile="vim $HOME/.zprofile"
+alias -g compconf="vim ${HOME}/.config/compton.conf"
+alias -g rcconf="vim ${HOME}/.config/ranger/rc.conf"
 alias -g omzshrc="vim ${HOME}/.zshrc"
-alias -g i3blocks="sudo vim /etc/i3blocks.conf"
-alias -g i3status="sudo vim /etc/i3status.conf"
+alias -g i3blocks="sudo vim -S /home/lautnern/.vimrc /etc/i3blocks.conf"
+alias -g i3stat="sudo vim -S /home/lautnern/.vimrc ${HOME}/.config/i3status/config"
 alias -g ncmpconf="vim ${HOME}/.ncmpcpp/config"
 alias -g lifebarrc="vim ~/.lifebarrc"
 alias -g polybarrc="vim ${HOME}/.config/polybar/config"
+alias -g stconf="vim ${HOME}/builds/st-bloated/config.h && cd ~/builds/st-bloated/ && sudo make clean install"
+alias -g mpdconf="vim $HOME/.config/mpd/mpd.conf"
 
-## ALTERED COMMANDS
+## CUSTOM COMMANDS
 alias -g cp="cp -i"
 alias -g mv="mv -i"
 #alias -g rm="rm -i"
-alias -g la="ls -al"
+alias -g la="ls -Al"
+alias -g ll="ls -l"
+alias -g lt="ls -clt"
+alias -g lag="ls -Al | grep"
+alias -g llg="ls -l | grep"
+alias -g ltg="ls -clt | grep"
+alias -g p="ping 8.8.8.8"
 alias -g c="clear && sync"
 alias -g inst="sudo pacman -S"
 alias -g upd="sudo pacman -Syu"
@@ -71,24 +82,33 @@ alias -g remove="sudo pacman -Rs"
 alias -g hib="sudo systemctl hibernate"
 alias -g susp="sudo systemctl suspend"
 alias -g cls="clear && ls"
-alias -g ncmp="ncmpcpp"
+alias -g ncmp="ncmpcpp -b ${HOME}/ncmpcpp/bindings"
 alias -g sys="sudo systemctl"
 alias -g psx="ps aux | grep"
 alias -g sql="mysql -u root -p"
 alias -g relo="source ${HOME}/.zshrc"
 alias -g xlifebar="killall lifebar && lifebar &"
 alias -g py="python3"
+alias -g news="newsboat"
 alias -g less="less -N"
 alias -g rest="sudo shutdown -r now"
+alias -g neo="clear && neofetch"
 #alias -g vim="vim -w ${HOME}/.vim/scriptout"
-alias -g r="rifle"
+alias -g r="ranger"
+alias -g mount_usb="sudo mount /dev/sdb1 /mnt/usb" #mounting an usb stick when nothing else is connected
+alias -g umount_usb="sudo umount /mnt/usb && sudo eject /dev/sdb" #same with umounting
+
+## LONGER COMMANDS ##
+
+alias -g todos="grep -rc \"TODO\" $HOME/scripts/* $HOME/projects/* | grep -v \":0\""
+alias -g makepkg="time makepkg -si"
 
 ## SSH TARGETS
-alias -g raspserv="nlautner@192.168.1.250"
-alias -g macbook="nlautner@192.168.1.6"
+#alias -g raspserv="lautnern@192.168.1.250"
+#alias -g macbook="lautnern@192.168.1.6"
 
 ##### PATH ##### should be set in .zshenv, where it is set now
 #PATH=${PATH}":/usr/local/sbin/lifebar/:/usr/local/bin/neofetch/:${HOME}/Scripts/"
 
 ## MISC ##
-(wal -r -t)
+#(wal -r -t)

@@ -1,0 +1,27 @@
+# Colors #
+#
+
+! dark-grey - bg
+*color0:  #0a0a0a
+*color8:  #0a0a0a
+! light-grey - fg
+*color1:  #c6c8cb
+*color9:  #c6c8cb
+! red-wine
+*color2:  #bd4e4e
+*color10: #bd4e4e
+! sand
+*color3:  #957847
+*color11: #957847
+! green
+*color4:  #397739
+*color12: #397739
+! darkish-grey
+*color5:  #707274
+*color13: #707274
+! lightish-grey
+*color6:  #909397
+*color14: #909397
+! egshell
+*color7:  #f0ead6
+*color15: #f0ead6

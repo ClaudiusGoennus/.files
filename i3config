@@ -31,7 +31,7 @@ for_window [title="st-floating"] floating enable
 for_window [class="vcmilauncher"] floating enable
 default_floating_border pixel 4
 
-gaps inner 10
+gaps inner 0
 gaps outer 0
 smart_gaps on
 smart_borders on
